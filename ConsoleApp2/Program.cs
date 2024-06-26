@@ -14,6 +14,12 @@ class Program
         Console.Write("Digite a porta do servidor SMTP: ");
         string port = Console.ReadLine().Trim();
 
+        Console.Write("Exige autenticação SSL (1 - Sim | 0 - Não): ");
+        bool autenticacao;
+        if (Console.ReadLine().Trim() == "0")
+            autenticacao = false;
+        else autenticacao = true;
+        
         Console.Write("\nDigite o e-mail remetente: ");
         string senderEmail = Console.ReadLine().Trim();
 
@@ -35,7 +41,7 @@ class Program
             SmtpClient client = new SmtpClient(smtpServer, Convert.ToInt32(port))
             {
                 Credentials = new NetworkCredential(senderEmail, password),
-                EnableSsl = true, 
+                EnableSsl = autenticacao, 
             };
 
             // Criar a mensagem de e-mail
